@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = ViewBag.MyTitle;
+}
+
+<div class="container ">
+    <div class="row">
+        <div class="col-md-8" style="background-color:#ffffff">
+            <h2>@ViewBag.MyTitle</h2>
+            <p><span>@ViewBag.Date</span><span style="margin-left:60px">阅读量:@ViewBag.Count</span></p>
+            <hr />
+            @ViewBag.Context
+        </div>
+
+        <div class="col-md-4">
+            <div style="background-color:#ffffff;margin-left:5px;padding:10px;">
+                <h3 class="text-center">个人资料</h3>
+                <div class="text-center">
+                    <img src=/image/6f50983a745942949b4ab87337ab4f96!400x400.jpeg class="img-circle" style="width:150px;height:150px;">
+                </div>
+                <div>
+                    <h4 class="text-center"><strong>梁斌</strong></h4>
+                    <p class="text-center">技术专家</p>
+                </div>
+            </div>
+            <div style="background-color:#ffffff;margin-left:5px;padding:10px; margin-top:10px;">
+                <p><strong>热门文章</strong></p>
+                <div class="list-group">
+
+                    @foreach (var item in ViewBag.HotList)
+                    {
+                        <a href="@Url.Action("Show","Home",new { ID = item.ID })" class="list-group-item ">
+                            <span class="badge">@item.Count</span>
+                            @item.MyTitle
+                        </a>
+                    }
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
