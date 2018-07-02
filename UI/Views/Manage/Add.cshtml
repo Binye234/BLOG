@@ -15,7 +15,8 @@
     <div id="context">
         <p>添加内容</p>
     </div>
-    <button type="button" class="btn btn-success" id="btn">提交</button>
+    <button type="button" class="btn btn-success" id="btn1">提交</button>
+    <button type="button" class="btn btn-danger" id="btn2">重置</button>
 </div>
 @section scripts{
     <script src="~/Scripts/wangEditor.min.js"></script>
@@ -23,18 +24,24 @@
         var E = window.wangEditor
         var editor = new E('#context')
         editor.customConfig.showLinkImg = false
-        editor.customConfig.uploadImgShowBase64 = true 
+        editor.customConfig.uploadImgShowBase64 = true
         editor.create()
 
-        document.getElementById('btn').addEventListener('click', function () {
+        document.getElementById('btn1').addEventListener('click', function () {
             // 读取 html
             var title = $("#title").val();
             var introduce = $("#introduce").val();
             var context = editor.txt.html();
-           
+
         }, false)
 
-      
+        document.getElementById('btn2').addEventListener('click', function () {
+            // 读取 html
+            $("#title").val("");
+            $("#introduce").val("");
+            editor.txt.html("");
+
+        }, false)
 
     </script>
 }
