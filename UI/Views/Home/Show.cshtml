@@ -3,13 +3,16 @@
     ViewBag.Title = ViewBag.MyTitle;
 }
 
+@model Model.Info
 <div class="container ">
     <div class="row">
         <div class="col-md-8" style="background-color:#ffffff">
-            <h2>@ViewBag.MyTitle</h2>
-            <p><span>@ViewBag.Date</span><span style="margin-left:60px">阅读量:@ViewBag.Count</span></p>
+            <h2 class="text-center">@Model.Title</h2>
+            <p><span>@Model.Date</span><span style="margin-left:60px">阅读量:@Model.Count</span></p>
             <hr />
-            @ViewBag.Context
+            <div id="context">
+                @Model.Context
+            </div>
         </div>
 
         <div class="col-md-4">
@@ -31,12 +34,21 @@
                     {
                         <a href="@Url.Action("Show","Home",new { ID = item.ID })" class="list-group-item ">
                             <span class="badge">@item.Count</span>
-                            @item.MyTitle
+                            @item.Title
                         </a>
                     }
-                
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script>
+        var context = $("#context").html();
+
+        context = decodeURIComponent(context);
+        $("#context").html(context);
+    </script>
+}

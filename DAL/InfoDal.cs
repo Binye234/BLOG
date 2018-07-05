@@ -70,7 +70,7 @@ namespace DAL
                 }
                 else
                 {
-                    list = bLOG.Infoes.OrderBy(p => p.Count).Skip(page * 10).Take(10).ToList();
+                    list = bLOG.Infoes.OrderByDescending(p => p.Count).Skip(page * 10).Take(10).ToList();
                     return list;
                 }
               
@@ -108,6 +108,8 @@ namespace DAL
             try
             {
                 var info = (from p in bLOG.Infoes where p.ID == id select p).FirstOrDefault();
+                info.Count++;
+                bLOG.SaveChanges();
                 return info;
             }catch(Exception e)
             {
@@ -150,6 +152,22 @@ namespace DAL
             {
                 Console.WriteLine(e.Message);
                 return num;
+            }
+        }
+        /// <summary>
+        /// 返回热度最高5条
+        /// </summary>
+        /// <returns></returns>
+        public List<Info> GetHostList()
+        {
+            try
+            {
+                var list = bLOG.Infoes.OrderByDescending(p => p.Count).Take(5).ToList();
+                return list;
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
             }
         }
     }

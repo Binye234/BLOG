@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="container">
+        @foreach (var item in Model)
+        {
+            <div class="panel panel-success" >
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">@item.Title</h3>
+                </div>
+                <div class="panel-body">
+                    @item.Introduce
+                </div>
+                <div class="panel-footer">
+                    @item.Date            阅读量：@item.Count  <a class="btn btn-danger" href='@Url.Action("TrueDelete","Manage",new { ID = item.ID })'>删除</a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <nav aria-label="Page navigation " class="text-center">
+        <ul class="pagination">
+            <li>
+                <a href="@Url.Action("Delete","Manage",new { page=ViewBag.page-1,flag=ViewBag.Flag})" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            @for (int i = 0; i <= ViewBag.Nums; i++)
+            {
+                <li><a href="@Url.Action("Delete","Manage",new { page=i,flag=ViewBag.Flag})">@(i + 1)</a></li>
+            }
+            <li>
+                <a href="@Url.Action("Delete","Manage",new { page=ViewBag.page+1,flag=ViewBag.Flag})" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+

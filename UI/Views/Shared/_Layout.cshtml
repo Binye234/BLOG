@@ -30,13 +30,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("主页", "Index", "Home")</li>
-                    <li>@Html.ActionLink("关于", "About", "Home")</li>
-                    <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("添加", "Add", "Manage")</li>
+                    <li>@Html.ActionLink("删除", "Delete", "Manage")</li>
+                 
                 </ul>
-                    <form class="navbar-form navbar-right" >
+                    <form class="navbar-form navbar-right" action="@Url.Action("FIndTitle","Home")">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="搜博主文章">
+                            <input type="text" class="form-control" placeholder="搜博主文章" name="title">
                         </div>
                         <button type="submit" class="btn btn btn-success">搜索</button>
                     </form>

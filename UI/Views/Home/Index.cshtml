@@ -1,35 +1,51 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "博客首页";
+
 }
 
-<div class="container " >
+@model IEnumerable<Model.Info>
+
+<div class="container ">
     <div class="row">
         <div class="col-md-8" style="background-color:#ffffff">
             <div>
                 <ul class="nav nav-pills ">
-                    <li role="presentation"><a>按更新时间排序</a></li>
-                    <li role="presentation"><a href="#">按热度排序</a></li>
+                    <li role="presentation"><a href="@Url.Action("Index","Home",new { page=0,flag=true} )">按更新时间排序</a></li>
+                    <li role="presentation"><a href="@Url.Action("Index","Home",new { page=0,flag=false} )">按热度排序</a></li>
                 </ul>
             </div>
             <hr / >
             <div class="container">
-                wdwdw
+                @foreach (var item in Model)
+                {
+                    <div class="panel panel-success" style="max-width:680px;">
+                        <div class="panel-heading">
+                           <a href="@Url.Action("Show","Home",new { ID = item.ID })"><h3 class="panel-title text-center">@item.Title</h3></a> 
+                        </div>
+                        <div class="panel-body">
+                            @item.Introduce
+                        </div>
+                        <div class="panel-footer">
+                            @item.Date            阅读量：@item.Count
+                        </div>
+                    </div>
+                }
             </div>
 
             <nav aria-label="Page navigation " class="text-center">
                 <ul class="pagination">
                     <li>
-                        <a href="#" aria-label="Previous">
+                        <a href="@Url.Action("Index","Home",new { page=ViewBag.page-1,flag=ViewBag.Flag})" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
+                    @for (int i = 0; i <= ViewBag.Nums; i++)
+                    {
+                        <li><a href="@Url.Action("Index","Home",new { page=i,flag=ViewBag.Flag})">@(i+1)</a></li>
+                    }
                     <li>
-                        <a href="#" aria-label="Next">
+                        <a href="@Url.Action("Index","Home",new { page=ViewBag.page+1,flag=ViewBag.Flag})" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -40,12 +56,12 @@
         <div class="col-md-4" ">
             <div style="background-color:#ffffff;margin-left:5px;padding:10px;">
                 <h3 class="text-center">个人资料</h3>
-                <div class="text-center" >   
+                <div class="text-center">
                     <img src=/image/6f50983a745942949b4ab87337ab4f96!400x400.jpeg class="img-circle" style="width:150px;height:150px;">
                 </div>
                 <div>
-                    <h4 class="text-center" ><strong>梁斌</strong></h4>
-                    <p class="text-center" >技术专家</p>
+                    <h4 class="text-center"><strong>梁斌</strong></h4>
+                    <p class="text-center">技术专家</p>
                 </div>
             </div>
             <div style="background-color:#ffffff;margin-left:5px;padding:10px; margin-top:10px;">
@@ -55,7 +71,7 @@
                     {
                         <a href="@Url.Action("Show","Home",new { ID = item.ID })" class="list-group-item ">
                             <span class="badge">@item.Count</span>
-                            @item.MyTitle
+                            @item.Title
                         </a>
                     }
                 </div>
